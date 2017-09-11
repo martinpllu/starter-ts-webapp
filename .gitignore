@@ -1,0 +1,6 @@
+.vscode
+dist
+*.map
+ui/model.json
+node_modules
+server/dist
