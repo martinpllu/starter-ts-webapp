@@ -5,7 +5,7 @@ Uses Webpack to bundle the application code and node module dependencies into di
 ## Quick start
 
 ```
-npm init            # install dependencies
+npm install         # install dependencies
 npm run compiler    # start the tsc and webpack compiler running
 npm run server      # start lite-server and launch your web app
 ```

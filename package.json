@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compiler": "webpack --config webpack-config.js --progress --colors --watch &",
-    "server": "lite-server &"
+    "server": "lite-server &",
+    "start": "webpack-dev-server --open --config webpack-config.js --watch"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +16,8 @@
     "lite-server": "^2.3.0",
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.2",
-    "webpack": "^3.5.6"
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "@types/lodash": "^4.14.74",
