@@ -1,33 +1,46 @@
 
 
-export class Paj {
+export class Pages {
 
-    static handler:any;
+    static handlers:any;
+
+    static routes : { [hashRegex:string]:IPage; } = {}
+
+    static currentPage:IPage;
 
     static gotoPage(pageName?:string) {
         if (pageName == undefined){
-            pageName = Paj.currentPageName();
+            pageName = Pages.currentPageName();
         }
         let page = document.getElementById('page');
-        let pageFunc = Paj.handler['page_' + pageName];
-        if (pageFunc !== undefined && typeof (pageFunc) == 'function') {
-            pageFunc.call(this.handler, pageName, page);
+        let foundMatch = false;
+        for (let hashRegex in Pages.routes){
+            if (pageName.match(hashRegex)){
+                if (Pages.currentPage){
+                    Pages.currentPage.exit();
+                }
+                let newPage = Pages.routes[hashRegex];
+                Pages.currentPage = newPage;
+                newPage.enter();
+                foundMatch = true;
+                break;
+            }
         }
-        else {
+        if (!foundMatch){
             console.log('No such pagefunc: ' + pageName);
         }
     }
 
     static gotoInitialPage(defaultPage:string){
-        let pageName = Paj.currentPageName() || defaultPage;
+        let pageName = Pages.currentPageName() || defaultPage;
         if (!window.location.hash){
             window.location.hash = pageName;
         }
-        Paj.gotoPage(pageName);
+        Pages.gotoPage(pageName);
     }
 
     static hashParam(key:string):string{
-        return Paj.hashParams()[key];
+        return Pages.hashParams()[key];
     }
 
     static hashParams(){
@@ -51,5 +64,26 @@ export class Paj {
 }
 
 window.onhashchange = function () {
-    Paj.gotoPage();
+    Pages.gotoPage();
+}
+
+export interface IPage {
+
+    enter():void;
+
+    exit():void;
+
+}
+
+export class Page implements IPage {
+
+
+    enter(){
+
+    }
+
+    exit(){
+
+    }
+
 }
